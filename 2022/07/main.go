@@ -45,18 +45,12 @@ func main() {
 	used := 70000000-sizeMap["/"]
 	needed := 30000000
 
-	keys := []string{}
 	for k := range sizeMap {
-		keys = append(keys, k)
-	}
-
-	sort.Strings(keys)
-	for _, v := range keys {
-		if sizeMap[v] <= 100000 {
-			part1Answer += sizeMap[v]
+		if sizeMap[k] <= 100000 {
+			part1Answer += sizeMap[k]
 		}
-		if sizeMap[v] >= needed-used {
-			part2Answer = append(part2Answer, sizeMap[v])
+		if sizeMap[k] >= needed-used {
+			part2Answer = append(part2Answer, sizeMap[k])
 		}
 	}
 	sort.Ints(part2Answer)
