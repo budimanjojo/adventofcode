@@ -25,7 +25,7 @@ func main() {
 			s += d
 		}
 		sums = append(sums, s)
-		s= 0
+		s = 0
 	}
 	sort.Ints(sums)
 	fmt.Println(sums[len(sums)-1])
