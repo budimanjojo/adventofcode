@@ -42,7 +42,7 @@ func main() {
 		}
 	}
 
-	used := 70000000-sizeMap["/"]
+	used := 70000000 - sizeMap["/"]
 	needed := 30000000
 
 	for k := range sizeMap {
