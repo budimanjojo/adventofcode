@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	partOneResult := 0
-	partTwoResult := 0
+	part1Answer := 0
+	part2Answer := 0
 	f, err := os.ReadFile("./input.txt")
 	if err != nil {
 		panic(err)
@@ -18,14 +18,15 @@ func main() {
 	for _, line := range lines {
 		count := len(line)
 		if count > 0 {
-			firstCompart := strings.Split(line[0:count/2], "")
+			firstCompart := strings.Split(line[:count/2], "")
+			fmt.Println(firstCompart)
 			secondCompart := strings.Split(line[count/2:count], "")
 			dup := getDuplicates(firstCompart, secondCompart)
 			value, err := stringtoNumber(dup[0])
 			if err != nil {
 				panic(err)
 			}
-			partOneResult += value
+			part1Answer += value
 		}
 	}
 
@@ -50,11 +51,11 @@ func main() {
 			panic(err)
 		}
 
-		partTwoResult += value
+		part2Answer += value
 	}
 
-	fmt.Println(partOneResult)
-	fmt.Println(partTwoResult)
+	fmt.Println(part1Answer)
+	fmt.Println(part2Answer)
 }
 
 func stringtoNumber(s string) (int, error) {
