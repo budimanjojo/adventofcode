@@ -9,8 +9,8 @@ import (
 )
 
 func main() {
-	totalPart1 := 0
-	totalPart2 := 0
+	part1Answer := 0
+	part2Answer := 0
 	f, err := os.ReadFile("./input.txt")
 	if err != nil {
 		panic(err)
@@ -36,23 +36,23 @@ func main() {
 			slice2 := makeRange(g2Int[0], g2Int[1])
 			if len(slice1) < len(slice2) {
 				if fullyContain(slice1, slice2) {
-					totalPart1++
+					part1Answer++
 				}
 				if partialContain(slice1, slice2) {
-					totalPart2++
+					part2Answer++
 				}
 			} else {
 				if fullyContain(slice2, slice1) {
-					totalPart1++
+					part1Answer++
 				}
 				if partialContain(slice1, slice2) {
-					totalPart2++
+					part2Answer++
 				}
 			}
 		}
 	}
-	fmt.Println(totalPart1)
-	fmt.Println(totalPart2)
+	fmt.Println(part1Answer)
+	fmt.Println(part2Answer)
 }
 
 func makeRange(min, max int) []int {
@@ -80,6 +80,5 @@ func partialContain(small, big []int) bool {
 			return true
 		}
 	}
-
 	return false
 }
