@@ -12,7 +12,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	
+
 	input := strings.Split(string(f), "\n\n")
 	moves := strings.Split(string(input[1]), "\n")
 	data := getStackData(input[0])
@@ -37,21 +37,21 @@ func main() {
 		}
 	}
 
-	partOneAnswer := []string{}
-	partTwoAnswer := []string{}
+	part1Answer := []string{}
+	part2Answer := []string{}
 
 	for i := 1; i < len(data)+1; i++ {
-		partOneAnswer = append(partOneAnswer, data[i][len(data[i])-1])
-		partTwoAnswer = append(partTwoAnswer, data2[i][len(data2[i])-1])
+		part1Answer = append(part1Answer, data[i][len(data[i])-1])
+		part2Answer = append(part2Answer, data2[i][len(data2[i])-1])
 	}
-	fmt.Println(strings.Join(partOneAnswer, ""))
-	fmt.Println(strings.Join(partTwoAnswer, ""))
+	fmt.Println(strings.Join(part1Answer, ""))
+	fmt.Println(strings.Join(part2Answer, ""))
 }
 
 func getStackData(s string) map[int][]string {
 	ss := strings.Split(s, "\n")
 	d := map[int][]string{}
-	for i := len(ss)-2; i > -1; i-- {
+	for i := len(ss) - 2; i > -1; i-- {
 		line := ss[i][1:]
 		for j, k := 0, 0; k < len(line); j, k = j+1, k+4 {
 			if string(line[k]) != " " {
