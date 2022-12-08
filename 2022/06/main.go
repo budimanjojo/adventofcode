@@ -14,7 +14,7 @@ func main() {
 
 func getFirstMarker(s string, size int) int {
 	for i := size; i < len(s); i++ {
-		if isUnique(s[i-size:i]) {
+		if isUnique(s[i-size : i]) {
 			return i
 		}
 	}
