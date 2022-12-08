@@ -28,7 +28,6 @@ func main() {
 		s= 0
 	}
 	sort.Ints(sums)
-	fmt.Println(sums)
 	fmt.Println(sums[len(sums)-1])
 	fmt.Println(sums[len(sums)-1] + sums[len(sums)-2] + sums[len(sums)-3])
 }
