@@ -7,32 +7,32 @@ import (
 )
 
 type Shape struct {
-	Name string
-	WinAgainst string
+	Name        string
+	WinAgainst  string
 	LoseAgainst string
-	Score int
+	Score       int
 }
 
 func main() {
 	rock := Shape{
-		Name: "Rock",
-		WinAgainst: "Scissors",
+		Name:        "Rock",
+		WinAgainst:  "Scissors",
 		LoseAgainst: "Paper",
-		Score: 1,
+		Score:       1,
 	}
-	
+
 	paper := Shape{
-		Name: "Paper",
-		WinAgainst: "Rock",
+		Name:        "Paper",
+		WinAgainst:  "Rock",
 		LoseAgainst: "Scissors",
-		Score: 2,
+		Score:       2,
 	}
 
 	scissors := Shape{
-		Name: "Scissors",
-		WinAgainst: "Paper",
+		Name:        "Scissors",
+		WinAgainst:  "Paper",
 		LoseAgainst: "Rock",
-		Score: 3,
+		Score:       3,
 	}
 
 	f, err := os.ReadFile("./input.txt")
@@ -51,7 +51,7 @@ func main() {
 		if len(move) == 2 {
 			opponent := move[0]
 			me := move[1]
-			var(
+			var (
 				myMove Shape
 				opMove Shape
 			)
