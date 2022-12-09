@@ -30,17 +30,17 @@ func main() {
 		amount, _ := strconv.Atoi(string(lines[i][2:]))
 
 		for i := 0; i < amount; i++ {
-			head.MoveHead(direction)
-			tail.MoveTail(direction, head)
-			if !contains(visited, tail) {
+			head.moveHead(direction)
+			tail.moveTail(direction, head)
+			if !tail.contains(visited) {
 				visited = append(visited, tail)
-		}
+			}
 		}
 	}
 	fmt.Println(len(visited))
 }
 
-func (head *Position) MoveHead(dir string) *Position {
+func (head *Position) moveHead(dir string) *Position {
 	switch dir {
 	case "L":
 		head.X--
@@ -54,7 +54,7 @@ func (head *Position) MoveHead(dir string) *Position {
 	return head
 }
 
-func (tail *Position) MoveTail(dir string, head Position) *Position {
+func (tail *Position) moveTail(dir string, head Position) *Position {
 	if tail.X == head.X && tail.Y == head.Y {
 		return tail
 	}
@@ -66,7 +66,7 @@ func (tail *Position) MoveTail(dir string, head Position) *Position {
 				tail.Y = head.Y
 			}
 		} else {
-			tail.X = head.X+1
+			tail.X = head.X + 1
 		}
 	case "R":
 		if tail.Y != head.Y {
@@ -75,7 +75,7 @@ func (tail *Position) MoveTail(dir string, head Position) *Position {
 				tail.Y = head.Y
 			}
 		} else {
-			tail.X = head.X-1
+			tail.X = head.X - 1
 		}
 	case "U":
 		if tail.X != head.X {
@@ -84,7 +84,7 @@ func (tail *Position) MoveTail(dir string, head Position) *Position {
 				tail.Y++
 			}
 		} else {
-			tail.Y = head.Y-1
+			tail.Y = head.Y - 1
 		}
 	case "D":
 		if tail.X != head.X {
@@ -93,14 +93,14 @@ func (tail *Position) MoveTail(dir string, head Position) *Position {
 				tail.Y--
 			}
 		} else {
-			tail.Y = head.Y+1
+			tail.Y = head.Y + 1
 		}
 
 	}
 	return tail
 }
 
-func contains(visited []Position, pos Position) bool {
+func (pos Position) contains(visited []Position) bool {
 	for _, v := range visited {
 		if v == pos {
 			return true
