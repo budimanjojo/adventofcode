@@ -22,7 +22,7 @@ func main() {
 	tail := newPosition()
 	part1Answer := []Position{newPosition()}
 	part2Answer := []Position{newPosition()}
-	rope := make([]Position, 8)
+	rope := make([]Position, 9)
 	for i := range rope {
 		rope[i] = newPosition()
 	}
@@ -39,7 +39,7 @@ func main() {
 			if !tail.contains(part1Answer) {
 				part1Answer = append(part1Answer, tail)
 			}
-			rope[0].moveTail(tail)
+			rope[0].moveTail(head)
 			for k := 1; k < len(rope); k++ {
 				rope[k].moveTail(rope[k-1])
 				if !rope[len(rope)-1].contains(part2Answer) {
