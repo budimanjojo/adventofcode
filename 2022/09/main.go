@@ -18,10 +18,14 @@ func main() {
 		panic(err)
 	}
 
-	head := Position{X: 0, Y: 0}
-	tail := Position{X: 0, Y: 0}
-	visited := []Position{}
-	visited = append(visited, tail)
+	head := newPosition()
+	tail := newPosition()
+	part1Answer := []Position{newPosition()}
+	part2Answer := []Position{newPosition()}
+	rope := make([]Position, 8)
+	for i := range rope {
+		rope[i] = newPosition()
+	}
 
 	lines := strings.Split(string(f), "\n")
 	lines = lines[:len(lines)-1]
@@ -31,13 +35,22 @@ func main() {
 
 		for i := 0; i < amount; i++ {
 			head.moveHead(direction)
-			tail.moveTail(direction, head)
-			if !tail.contains(visited) {
-				visited = append(visited, tail)
+			tail.moveTail(head)
+			if !tail.contains(part1Answer) {
+				part1Answer = append(part1Answer, tail)
+			}
+			rope[0].moveTail(tail)
+			for k := 1; k < len(rope); k++ {
+				rope[k].moveTail(rope[k-1])
+				if !rope[len(rope)-1].contains(part2Answer) {
+					part2Answer = append(part2Answer, rope[len(rope)-1])
+				}
 			}
 		}
 	}
-	fmt.Println(len(visited))
+
+	fmt.Println(len(part1Answer))
+	fmt.Println(len(part2Answer))
 }
 
 func (head *Position) moveHead(dir string) *Position {
@@ -54,48 +67,25 @@ func (head *Position) moveHead(dir string) *Position {
 	return head
 }
 
-func (tail *Position) moveTail(dir string, head Position) *Position {
+func (tail *Position) moveTail(head Position) *Position {
 	if tail.X == head.X && tail.Y == head.Y {
 		return tail
 	}
-	switch dir {
-	case "L":
-		if tail.Y != head.Y {
-			if tail.X == head.X+2 {
-				tail.X--
-				tail.Y = head.Y
-			}
-		} else {
-			tail.X = head.X + 1
-		}
-	case "R":
-		if tail.Y != head.Y {
-			if tail.X == head.X-2 {
-				tail.X++
-				tail.Y = head.Y
-			}
-		} else {
-			tail.X = head.X - 1
-		}
-	case "U":
-		if tail.X != head.X {
-			if tail.Y == head.Y-2 {
-				tail.X = head.X
-				tail.Y++
-			}
-		} else {
-			tail.Y = head.Y - 1
-		}
-	case "D":
-		if tail.X != head.X {
-			if tail.Y == head.Y+2 {
-				tail.X = head.X
-				tail.Y--
-			}
-		} else {
-			tail.Y = head.Y + 1
-		}
-
+	if head.X-tail.X == -2 {
+		tail.X = head.X + 1
+		tail.Y = head.Y
+	}
+	if head.X-tail.X == 2 {
+		tail.X = head.X - 1
+		tail.Y = head.Y
+	}
+	if head.Y-tail.Y == 2 {
+		tail.X = head.X
+		tail.Y = head.Y - 1
+	}
+	if head.Y-tail.Y == -2 {
+		tail.X = head.X
+		tail.Y = head.Y + 1
 	}
 	return tail
 }
@@ -107,4 +97,8 @@ func (pos Position) contains(visited []Position) bool {
 		}
 	}
 	return false
+}
+
+func newPosition() Position {
+	return Position{X: 0, Y: 0}
 }
