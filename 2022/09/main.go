@@ -68,7 +68,7 @@ func (head *Position) moveHead(dir string) *Position {
 }
 
 func (tail *Position) moveTail(head Position) *Position {
-	if tail.X == head.X && tail.Y == head.Y {
+	if tail == &head {
 		return tail
 	}
 	if head.X-tail.X == -2 {
