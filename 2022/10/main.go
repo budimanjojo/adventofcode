@@ -39,7 +39,6 @@ func main() {
 	}
 
 	fmt.Println(part1Answer)
-	fmt.Println(cycle.Count)
 	cycle.drawScreen()
 }
 
