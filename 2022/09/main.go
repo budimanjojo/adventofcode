@@ -68,24 +68,35 @@ func (head *Position) moveHead(dir string) *Position {
 }
 
 func (tail *Position) moveTail(head Position) *Position {
-	if tail == &head {
-		return tail
-	}
+	// left
 	if head.X-tail.X == -2 {
-		tail.X = head.X + 1
-		tail.Y = head.Y
+		tail.X--
+		if head.Y > tail.Y {
+			tail.Y++
+		}
+		if head.Y < tail.Y {
+			tail.Y--
+		}
 	}
+	// right
 	if head.X-tail.X == 2 {
-		tail.X = head.X - 1
-		tail.Y = head.Y
+		tail.X++
+		if head.Y > tail.Y {
+			tail.Y++
+		}
+		if head.Y < tail.Y {
+			tail.Y--
+		}
 	}
+	// up
 	if head.Y-tail.Y == 2 {
+		tail.Y++
 		tail.X = head.X
-		tail.Y = head.Y - 1
 	}
+	// down
 	if head.Y-tail.Y == -2 {
+		tail.Y--
 		tail.X = head.X
-		tail.Y = head.Y + 1
 	}
 	return tail
 }
