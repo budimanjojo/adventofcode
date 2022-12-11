@@ -50,7 +50,7 @@ func genCycles(ss []string) *Cycles {
 func (c *Cycles) drawScreen() {
 	for k, v := range c.Count[:len(c.Count)] {
 		spritePos := k % 40
-		if k%40 == 0 && k != 0 && k != len(c.Count)-1{
+		if spritePos == 0 && k != 0 && k != len(c.Count)-1{
 			fmt.Printf("\n")
 		}
 		if v-spritePos >= -1 && v-spritePos <= 1 {
