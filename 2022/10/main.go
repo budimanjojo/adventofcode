@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -38,7 +37,7 @@ func main() {
 		part1Answer += cycle.Count[i-1] * i
 	}
 
-	fmt.Println(part1Answer)
+	println(part1Answer)
 	cycle.drawScreen()
 }
 
