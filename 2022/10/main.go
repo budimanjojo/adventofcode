@@ -19,53 +19,44 @@ func main() {
 
 	lines := strings.Split(string(f), "\n")
 	lines = lines[:len(lines)-1]
-	cycle := new(Cycles)
-	cycle.Count = make([]int, 1)
-	cycle.Count[0] = 1
 	part1Answer := 0
-
-	for i := 0; i < len(lines); i++ {
-		if lines[i] == "noop" {
-			cycle.Count = append(cycle.Count, cycle.Count[len(cycle.Count)-1])
-		} else {
-			number, _ := strconv.Atoi(lines[i][5:])
-			cycle.Count = append(cycle.Count, cycle.Count[len(cycle.Count)-1])
-			cycle.Count = append(cycle.Count, cycle.Count[len(cycle.Count)-1]+number)
-		}
-	}
+	cycles := genCycles(lines)
 
 	for i := 20; i <= 220; i = i + 40 {
-		part1Answer += cycle.Count[i-1] * i
+		part1Answer += cycles.Count[i-1] * i
 	}
-
 	fmt.Println(part1Answer)
-	cycle.drawScreen()
+
+	cycles.drawScreen()
 }
 
-func (c Cycles) drawScreen() {
-	crt := map[int][]string{}
-	column := 0
-	pixel := 0
-	for i := 0; i < len(c.Count); i++ {
-		if abs(c.Count[i]-pixel) <=1 {
-			crt[column] = append(crt[column], "")
+func genCycles(ss []string) *Cycles {
+	c := new(Cycles)
+	c.Count = make([]int, 1)
+	c.Count[0] = 1
+
+	for i := range ss {
+		if ss[i] == "noop" {
+			c.Count = append(c.Count, c.Count[len(c.Count)-1])
 		} else {
-			crt[column] = append(crt[column], " ")
-		}
-		pixel++
-		if pixel == 40 {
-			column++
-			pixel = 0
+			number, _ := strconv.Atoi(ss[i][5:])
+			c.Count = append(c.Count, c.Count[len(c.Count)-1])
+			c.Count = append(c.Count, c.Count[len(c.Count)-1]+number)
 		}
 	}
-	for i := 0; i < 6; i++ {
-		println(strings.Join(crt[i], ""))
-	}
+	return c
 }
 
-func abs(i int) int {
-	if i < 0 {
-		return -i
+func (c *Cycles) drawScreen() {
+	for k, v := range c.Count[:len(c.Count)] {
+		spritePos := k % 40
+		if k%40 == 0 && k != 0 && k != len(c.Count)-1{
+			fmt.Printf("\n")
+		}
+		if v-spritePos >= -1 && v-spritePos <= 1 {
+			fmt.Printf("")
+		} else {
+			fmt.Printf(" ")
+		}
 	}
-	return i
 }
