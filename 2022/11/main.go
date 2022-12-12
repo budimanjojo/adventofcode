@@ -10,12 +10,10 @@ import (
 
 type Monkey struct {
 	Items        []int
-	LHSOperation string
-	Operation    string
-	RHSOperation string
+	Operation    []string
 	DivBy        int
-	IfTrue   int
-	IfFalse  int
+	IfTrue       int
+	IfFalse      int
 	InspectCount int
 }
 
@@ -62,13 +60,10 @@ func genMonkeys(s string) []Monkey {
 			d, _ := strconv.Atoi(items[i])
 			monkey.Items = append(monkey.Items, d)
 		}
-		op := strings.Split(strings.TrimPrefix(data[2], "  Operation: new = "), " ")
 		db, _ := strconv.Atoi(strings.TrimPrefix(data[3], "  Test: divisible by "))
 		ifTrue, _ := strconv.Atoi(string(data[4][len(data[4])-1]))
 		ifFalse, _ := strconv.Atoi(string(data[5][len(data[5])-1]))
-		monkey.LHSOperation = op[0]
-		monkey.Operation = op[1]
-		monkey.LHSOperation = op[2]
+		monkey.Operation = strings.Split(strings.TrimPrefix(data[2], "  Operation: new = "), " ")
 		monkey.DivBy = db
 		monkey.IfTrue = ifTrue
 		monkey.IfFalse = ifFalse
@@ -98,15 +93,15 @@ func doRound(monkeys []Monkey, isWorried bool) *[]Monkey {
 }
 
 func (m Monkey) calculate(i int) int {
-	lhs, err := strconv.Atoi(m.LHSOperation)
+	lhs, err := strconv.Atoi(m.Operation[0])
 	if err != nil {
 		lhs = i
 	}
-	rhs, err := strconv.Atoi(m.RHSOperation)
+	rhs, err := strconv.Atoi(m.Operation[2])
 	if err != nil {
 		rhs = i
 	}
-	switch m.Operation {
+	switch m.Operation[1] {
 	case "+":
 		return lhs + rhs
 	case "*":
