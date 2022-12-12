@@ -31,9 +31,7 @@ func main() {
 }
 
 func genCycles(ss []string) *Cycles {
-	c := new(Cycles)
-	c.Count = make([]int, 1)
-	c.Count[0] = 1
+	c := Cycles{ Count: []int{1} }
 
 	for i := range ss {
 		if ss[i] == "noop" {
@@ -44,7 +42,7 @@ func genCycles(ss []string) *Cycles {
 			c.Count = append(c.Count, c.Count[len(c.Count)-1]+number)
 		}
 	}
-	return c
+	return &c
 }
 
 func (c *Cycles) drawScreen() {
